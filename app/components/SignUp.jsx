@@ -4,13 +4,11 @@ import React, { useState } from 'react'
 import axios from 'axios'
 // import Header from '../components/Header';
 const SignUp = () => {
-    const [user, setUser] = useState({
-        isActive: true,
-    });
+    const [user, setUser] = useState();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setUser((user) =>({ ...user,[name]: value }));
+        setUser((PrevUser) =>({ ...PrevUser,[name]: value }));
     };
 
     const handleSubmit = async (e) => {
@@ -22,44 +20,48 @@ const SignUp = () => {
         }
     };
   return (
-    <div>
-        {/* <Header /> */}
-        <h1>Register</h1>
-        <div className='containerSign'>
-            <form onSubmit={handleSubmit} className='sign'>
-                <label htmlFor='prenom'>Prenom :</label>
-                <input
-                    type='text'
-                    onChange={handleChange}
-                    placeholder='prenom'
-                    name='prenom'
-                />
-                <label htmlFor='avatar'>Avatar :</label>
-                <input
-                    type='file'
-                    onChange={handleChange}
-                    placeholder='URL picture'
-                    name='avatar'
-                />
-                <label htmlFor='email'>Email :</label>
-                <input
-                    type='text'
-                    onChange={handleChange}
-                    placeholder='email'
-                    name='email'
-                />
-                <label htmlFor='password'>Password :</label>
-                <input
-                    type='password'
-                    onChange={handleChange}
-                    name='password'
-                />
-                <button>S'inscrire</button>
-                {/* <Link to='/sign' className='linkForm'>Déjà inscrit ?</Link> */}
-            </form>
-        </div>
-
-    </div>
+    <div className="register-container">
+      <h1 className="register-title">CaféTalk - Inscription</h1>
+      <div className="register-content">
+          <form onSubmit={handleSubmit} className="register-form">
+              <label htmlFor="prenom" className="register-label">Prénom :</label>
+              <input
+                  type="text"
+                  onChange={handleChange}
+                  placeholder="Entrez votre prénom"
+                  name="prenom"
+                  className="register-input"
+                   
+              />
+              <label htmlFor="avatar" className="register-label">Avatar :</label>
+              <input
+                  type="file"
+                  onChange={handleChange}
+                  name="avatar"
+                  className="register-input"
+              />
+              <label htmlFor="email" className="register-label">Email :</label>
+              <input
+                  type="email"
+                  onChange={handleChange}
+                  placeholder="Entrez votre email"
+                  name="email"
+                  className="register-input"
+                   
+              />
+              <label htmlFor="password" className="register-label">Mot de passe :</label>
+              <input
+                  type="password"
+                  onChange={handleChange}
+                  placeholder="Votre mot de passe"
+                  name="password"
+                  className="register-input"
+                   
+              />
+              <button type="submit" className="register-button">Rejoindre le café</button>
+          </form>
+      </div>
+  </div>
   )
 }
 
