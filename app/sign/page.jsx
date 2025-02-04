@@ -15,8 +15,10 @@ export default function SignPage() {
         <DiCoffeescript size={500} />
       </div>
       <div className={style.containerForm}>
-        {signingUp && <SignUp />}
-        {signingIn && <SignIn />}
+        <h1 className={style.titreForm}>Un petit CoffeeX ?</h1>
+        <h2 className={style.sousTitreForm}>What else ?</h2>
+        {signingUp && <SignUp setSigningIn={setSigningIn} setSigningUp={setSigningUp} />}
+        {signingIn && <SignIn setSigningIn={setSigningIn} setSigningUp={setSigningUp} />}
       </div>
     </div>
   )

@@ -3,15 +3,15 @@
 import React, { useState, useContext } from 'react'
 import Link from 'next/link'
 import { AuthContext } from '../context/AuthContext'
+import { Links } from 'react-router-dom';
 
-export default function SignIn() {
+export default function SignIn({ setSigningIn, setSigningUp }) {
   const [user, setUser] = useState({})
   const { login } = useContext(AuthContext)
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setUser(PrevUser => ({ ...PrevUser, [name]: value }))
-
   }
 
   const handleSubmit = (e) => {
@@ -22,6 +22,12 @@ export default function SignIn() {
       console.log(user);
     }
   }
+
+  const switchToSignUp = () => {
+    setSigningIn(false);
+    setSigningUp(true);
+  };
+
   return (
     <div className="container">
       <div className="login-box">
@@ -53,9 +59,9 @@ export default function SignIn() {
               <div className="btn-container">
                 <button className="btn">Se connecter</button>
               </div>
-            <p className="register-link">Pas encore de compte ? <a href="/signup">Inscrivez-vous</a></p>
         </form>
       </div>
+      <button onClick={switchToSignUp}>Pas encore de compte ? Inscrivez-vous</button>
     </div>
   )
 }
