@@ -5,14 +5,13 @@ import Link from 'next/link'
 import { AuthContext } from '../context/AuthContext'
 import style from '../sign/page.module.css'
 
-export default function SignIn() {
+export default function SignIn({ setSigningIn, setSigningUp }) {
   const [user, setUser] = useState({})
   const { login } = useContext(AuthContext)
 
   const handleChange = (e) => {
     const { name, value } = e.target
     setUser(PrevUser => ({ ...PrevUser, [name]: value }))
-
   }
 
   const handleSubmit = (e) => {
@@ -23,10 +22,16 @@ export default function SignIn() {
       console.log(user);
     }
   }
+
+  const switchToSignUp = () => {
+    setSigningIn(false);
+    setSigningUp(true);
+  };
+
   return (
     <div className={style.containerSignIn}>
       <div className={style.loginBox}>
-        <h2 className={style.title}>Connexion</h2>
+        <h2>Connexion</h2>
         <p className={style.subtitle}>Connectez-vous pour savourer l'expérience</p>
         <form action="" onSubmit={handleSubmit}>
               <div className={style.inputBox}>
@@ -54,8 +59,8 @@ export default function SignIn() {
               <div className={style.btnContainer}>
                 <button className={style.btn}>Se connecter</button>
               </div>
-            <p className={style.registerLink}>Pas encore de compte ? <a href="/signup">Inscrivez-vous</a></p>
         </form>
+        <button onClick={switchToSignUp}>Pas encore de compte ? Inscrivez-vous</button>
       </div>
     </div>
   )
