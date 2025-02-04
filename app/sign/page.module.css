@@ -14,7 +14,7 @@
 .containerForm {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: flex-start;
 }
 
@@ -49,8 +49,9 @@
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
+    align-items: flex-start;
+    width: 40vw;
+    height: auto;
     margin: 0;
   }
   
