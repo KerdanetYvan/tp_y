@@ -5,7 +5,7 @@ import style from './page.module.css';
 export default function SignPage() {
   return (
     <div style={style.container}>
-      Page d'inscription
+      <SignIn />
     </div>
   )
 }
