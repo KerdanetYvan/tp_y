@@ -1,4 +1,5 @@
 import connect from "@/libs/mongodb";
+import User from "@/models/user.model";
 
 export async function POST(req) {
     try {
@@ -8,9 +9,21 @@ export async function POST(req) {
         // On récupère les données de la requête
         const body = await req.json();
 
-        
+        const userCreated = await addUser(body);
+
+        return Response.json({
+            user: userCreated,
+            status: 201
+        });
     } catch (error) {
-        console.error("Erreur lors de l'inscription :", error);
-        return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+        return console.log(error.message);
+    };
+};
+
+function addUser(user) {
+    try {
+        return User.create({...user});
+    } catch (error) {
+        throw new Error(error.message);
     };
 };
