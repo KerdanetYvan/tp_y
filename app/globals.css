@@ -8,6 +8,7 @@ body {
     height: 100vh;
     margin: 0;
 }
+
 .register-title {
     text-align: center;
     font-size: 2.2rem;
@@ -65,13 +66,3 @@ body {
     background-color: #B97A58;
 }
 
-/* Ajout d'une touche café avec un effet de texture bois */
-.register-container::before {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/wood.png');
-    opacity: 0.1;
-    border-radius: 12px;
-}
