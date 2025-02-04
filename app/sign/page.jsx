@@ -6,8 +6,8 @@ import { DiCoffeescript } from "react-icons/di";
 import React, { useState } from 'react';
 
 export default function SignPage() {
-  const [signingUp, setSigningUp] = useState(true);
-  const [signingIn, setSigningIn] = useState(false);
+  const [signingUp, setSigningUp] = useState(false);
+  const [signingIn, setSigningIn] = useState(true);
 
   return (
     <div className={style.container}>
