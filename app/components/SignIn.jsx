@@ -3,7 +3,6 @@
 import React, { useState, useContext } from 'react'
 import Link from 'next/link'
 import { AuthContext } from '../context/AuthContext'
-import { Links } from 'react-router-dom';
 
 export default function SignIn({ setSigningIn, setSigningUp }) {
   const [user, setUser] = useState({})
