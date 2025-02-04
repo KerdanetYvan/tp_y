@@ -3,6 +3,7 @@
 import React, { useState, useContext } from 'react'
 import Link from 'next/link'
 import { AuthContext } from '../context/AuthContext'
+import style from '../sign/page.module.css'
 
 export default function SignIn() {
   const [user, setUser] = useState({})
@@ -23,37 +24,37 @@ export default function SignIn() {
     }
   }
   return (
-    <div className="container">
-      <div className="login-box">
-        <h2>Connexion</h2>
-        <p className="subtitle">Connectez-vous pour savourer l'expérience</p>
+    <div className={style.containerSignIn}>
+      <div className={style.loginBox}>
+        <h2 className={style.title}>Connexion</h2>
+        <p className={style.subtitle}>Connectez-vous pour savourer l'expérience</p>
         <form action="" onSubmit={handleSubmit}>
-              <div className="input-box">
+              <div className={style.inputBox}>
                 <label>Email</label>
                 <input 
                   type="email"
                   name="email"
                   placeholder="Entrez votre email" 
                   onChange={handleChange} 
-                  className='register-input'
+                  className={style.registerInput}
                   required 
                 />
               </div>
-              <div className="input-box">
+              <div className={style.inputBox}>
                 <label>Mot de passe</label>
                 <input 
                   type="password" 
                   name='password'
                   placeholder="Entrez votre mot de passe" 
                   onChange={handleChange} 
-                  className='register-input'
+                  className={style.registerInput}
                   required 
                 />
               </div>
-              <div className="btn-container">
-                <button className="btn">Se connecter</button>
+              <div className={style.btnContainer}>
+                <button className={style.btn}>Se connecter</button>
               </div>
-            <p className="register-link">Pas encore de compte ? <a href="/signup">Inscrivez-vous</a></p>
+            <p className={style.registerLink}>Pas encore de compte ? <a href="/signup">Inscrivez-vous</a></p>
         </form>
       </div>
     </div>
