@@ -1,29 +1,27 @@
-import connect from "@/libs/mongodb";
+import { NextResponse } from "next/server";
+import clientPromise from "@/libs/mongodb";
+import mongoose from "mongoose";
 import User from "@/models/user.model";
+import bcrypt from "bcryptjs";
 
 export async function POST(req) {
     try {
-        // On commence par se connecter à la base de données
-        await connect();
+        // On récupère les informations de l'utilisateur
+        const { nickname, email, password, avatar } = await req.json();
+        // console.log("👤 Utilisateur :", nickname, email, password, avatar); // Test de récupération de l'utilisateur
 
-        // On récupère les données de la requête
-        const body = await req.json();
-
-        const userCreated = await addUser(body);
-
-        return Response.json({
-            user: userCreated,
-            status: 201
+        // On se connecte à la base de données
+        const client = await clientPromise;
+        const db = client.db();
+        await mongoose.connect(process.env.MONGODB_URI, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
         });
-    } catch (error) {
-        return console.log(error.message);
-    };
-};
 
-function addUser(user) {
-    try {
-        return User.create({...user});
+        // On vérifie si l'utilisateur existe déjà
+        const user = await User.findOne({ email });
+        // console.log("🔍 Utilisateur trouvé :", user); // Test pour savoir si l'utilisateur existe ou non
     } catch (error) {
-        throw new Error(error.message);
+        console.error("❌ Erreur serveur :", error);
     };
 };

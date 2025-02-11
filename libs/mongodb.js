@@ -1,58 +1,29 @@
-import mongoose from "mongoose";
+import { MongoClient } from "mongodb";
 
-const connect = async () => {
-    // On vérifie si on est déjà connecté
-    if (mongoose.connections[0].readyState) {
-        console.log("Déjà connecté à MongoDB");
-        return;
-    };
-
-    try {
-        // On essaie de se connecter
-        await mongoose.connect(process.env.MONGO_URI, {
-            dbName: 'CoffeeX',
-            useNewUrlParser: true,
-            useUnifiedTopology: true
-        });
-        console.log("Connecté à MongoDB");
-    } catch (error) {
-        console.error("Problème de connexion:", error.message);
-        throw new Error("Échec de connexion à la base de données");
-    };
+const uri = process.env.MONGODB_URI; // 🔥 Mets ta variable d'environnement ici
+const options = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 };
 
-/**
-* Système de cache pour éviter les connexions multiples
-* Garde en mémoire l'état de la connexion globalement
-*/
-let cached = global.mongoose;
-if (!cached) {
-    cached = global.mongoose = { conn: null, promise: null };
+let client;
+let clientPromise;
+
+if (!process.env.MONGODB_URI) {
+    throw new Error("❌ La variable d'environnement MONGODB_URI n'est pas définie.");
 };
 
-/**
-* Fonction principale exportée qui gère la connexion MongoDB
-* Implémente le pooling de connexions et le cache
-* @returns {Promise} Connexion Mongoose
-*/
-export default async function connectDB() {
-    // Retourne la connexion existante si disponible
-    if (cached.conn) {
-        return cached.conn;
-    };
+if (process.env.NODE_ENV === "development") {
+    // ✅ Évite de recréer plusieurs connexions en mode dev (Hot Reload Next.js)
+    if (!global._mongoClientPromise) {
+        client = new MongoClient(uri, options);
+        global._mongoClientPromise = client.connect();
+    }
+    clientPromise = global._mongoClientPromise;
+} else {
+    // ✅ En production, on crée une nouvelle connexion
+    client = new MongoClient(uri, options);
+    clientPromise = client.connect();
+}
 
-    // Initialise la connexion si aucune n'est en cours
-    if (!cached.promise) {
-        cached.promise = connect();
-    };
-    
-    try {
-        // Attend que la connexion soit établie
-        cached.conn = await cached.promise;
-        return cached.conn;
-    } catch (e) {
-        // Réinitialise la promesse en cas d'erreur pour réessayer
-        cached.promise = null;
-        throw e;
-    };
-};
+export default clientPromise;
