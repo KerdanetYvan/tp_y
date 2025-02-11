@@ -1,55 +1,51 @@
 'use client';
 import styles from "../page.module.css";
 import axios from "axios";
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState, useContext} from 'react'
 import { AuthContext } from "../context/AuthContext";
-const Coffs = () => {
+const Coff = () => {
     const { auth } = useContext(AuthContext);    
     const [coffs, setCoffs] = useState({
         user: '',
         coffs: '',
-        img: [],
+        img: '',
     });
 
     const handleChange = (e) => {
         // Destructuration pour extraire name, value et files de l'événement
         const { name, value, files } = e.target;
-        // Vérifie si le champ modifié est une image (commence par "img")
-        setCoffs((prev) => {
-            if (name === "img" && files && files.length > 0) {
-                return {
-                    ...prev,
-                    img: files ? [...prev.img, files[0]] : prev, // Convertit le fichier en URL utilisable
-                };
-            }else if (name === "user") {
-                return {
-                    ...prev,
-                    [name]: auth.nickname,
-                };
-            }else {
-                return {
-                    ...prev,
-                    [name]: value,
-                };
-            }
-        });
+
+        if (name === "img" && files.length > 0) {
+            const file = files[0];
+            const reader = new FileReader();
+            
+            reader.onloadend = () => {
+                setCoffs((prev) => ({ ...prev, image: reader.result }));
+            };
+            
+            reader.readAsDataURL(file); // Convertit l’image en Base64
+        } else if (name === "user") {
+            setCoffs((prev) => ({ ...prev, user: auth.nickname }));
+        } else {
+            setCoffs((prev) => ({ ...prev, [name]: value }));
+        }
         
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
         try{
-            const response = await axios.post("api/coff", coffs);
-            if(response.status === 200){
+            const response = await axios.post("http://localhost:3000/api/coff", coffs);
+
+            if(response.status === 201){
                 console.log('Coffs publié');
+                console.log(response);
+                
             }
         }catch(e){
             console.log(e.message);
         }
-    }
-    useEffect(() => {
-        console.log(coffs); // Cela affichera toujours l'état mis à jour
-    }, [coffs]);
-
+    };
+    
   return (
     <div className={styles.containerCoffs}>
         <img src="https://img-cdn.pixlr.com/image-generator/history/65bb506dcb310754719cf81f/ede935de-1138-4f66-8ed7-44bd16efc709/medium.webp" alt="" className={styles.imgCoffs} />
@@ -74,4 +70,4 @@ const Coffs = () => {
   )
 }
 
-export default Coffs
+export default Coff

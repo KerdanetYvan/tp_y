@@ -1,6 +1,6 @@
 import styles from "./page.module.css";
 import SignUp from "./components/SignUp";
-import Coffs from "./components/Coffs";
+import Coffs from "./components/Coff";
 export default function Home() {
   return (
     <div className={styles.container}>

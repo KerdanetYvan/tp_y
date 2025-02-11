@@ -1,47 +1,49 @@
-import { NextResponse } from "next/server";
-import clientPromise from "@/libs/mongodb";
-import Coffs from "@/models/coffs.model";
+import Coff from "@/models/coff.model";
+import connectDB from "@/libs/mongodb";
 
 export async function GET(id) {
-    const client = await clientPromise;
-    const db = client.db("CoffeeX");
     const coff = await db.collection("coffs").findOne({ _id: id });
     return NextResponse.json(coff);
 };
 
+const addCoff =async (coff) => {
+    try{
+
+        const reponse = await Coff.create(coff);
+        // retourne la réponse de la base de données (l'article créé)
+        
+        return reponse;
+    } catch(e){
+        // en cas d'erreur, afficher le message dans la console
+        throw new Error(e.message);
+    }
+}
 export async function POST(req) {
     try {
+        connectDB();
         const body =await req.json();
-        console.log("body reçu :", body);
+        // console.log("body reçu :", body);
 
+
+        const coffCreated = await addCoff(body);
+        console.log("Coff créé :", coffCreated);
+        
+        
         if(!body.coffs){
-            return NextResponse.json(
+            return Response.json(
                 {error: "Tous les champs sont requis."},
                 {status: 400}
             );
         }
-
-        const client = await clientPromise;
-        const db = client.db();
-        const coffsCollection = db.collection("coffs");
-
-        const newCoffs = new Coffs({
-            user: localStorage.nickname,
-            coffs: body.coffs,
-            image: body.image || null,
-        });
-
-        await newCoffs.save();
-
-        return NextResponse.json(
-            {message: "Coffs publié", coffs: { user: newCoffs.nickname, coffs: newCoffs.coffs, image: newCoffs.image}},
+        
+        return Response.json(
+            {message: "Coffs publié", coff: coffCreated},
             {status: 201}
         );
         
     } catch (error) {
-        console.error("Erreur serveur :", error);
-        return NextResponse.json(
-            {error: "Erreur serveur"},
+        return Response.json(
+            {error: error.message},
             {status: 500}
         );
     };

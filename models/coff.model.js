@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
 // On importe un plugin qui va nous aider à gérer les valeurs unique dans notre BDD
-import uniqueValidator from "mongoose-unique-validator";
+
 
 // Définition du Schéma : Comment nos users doivent être structurés
-const coffsSchema = new mongoose.Schema({
+const coffSchema = new mongoose.Schema({
     // Le pseudo de l'utilisateur
     user: {
         type: String,
-        required: true,
+        required: false,
     },
     // Le post de l'utilisateur
     coffs: {
@@ -16,8 +16,8 @@ const coffsSchema = new mongoose.Schema({
         required: true,
     },
     // La photo du post
-    image: {
-        type: File,
+    img: {
+        type: String,
         required: false,
     },
 }, {
@@ -25,8 +25,7 @@ const coffsSchema = new mongoose.Schema({
     timestamps: true,
 });
 
-coffsSchema.plugin(uniqueValidator);
 
-const Coffs = mongoose.models.Coffs || mongoose.model("Coffs", coffsSchema);
+const Coffs = mongoose.models.Coffs || mongoose.model("Coffs", coffSchema);
 
 export default Coffs;
