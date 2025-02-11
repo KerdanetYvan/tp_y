@@ -8,7 +8,8 @@ export async function GET(id) {
 
 const addCoff =async (coff) => {
     try{
-
+        // connexion à la base de données
+        await connectDB();
         const reponse = await Coff.create(coff);
         // retourne la réponse de la base de données (l'article créé)
         
@@ -20,7 +21,7 @@ const addCoff =async (coff) => {
 }
 export async function POST(req) {
     try {
-        connectDB();
+        await connectDB();
         const body =await req.json();
         // console.log("body reçu :", body);
 
