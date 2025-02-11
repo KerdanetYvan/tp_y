@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import axios from "axios";
 import { redirect } from 'next/navigation';
 
@@ -9,10 +9,14 @@ export const AuthProvider = ({ children }) => {
     // Etat pour suivre l'authentification
     const [isLoading, setIsLoading] = useState(false);
     // Etat pour stocker les infos de l'user connecté
-    const [auth, setAuth] = useState(() => {
-        const storedAuth = localStorage.getItem('auth');
-        return storedAuth ? JSON.parse(storedAuth) : null;
-    });
+    const [auth, setAuth] = useState();
+
+    useEffect(() => {
+        setAuth(() =>{
+            const storedAuth = localStorage.getItem('auth');
+            return storedAuth ? JSON.parse(storedAuth) : null;
+        })
+    }, []);
 
     axios.defaults.withCredentials = true;
 
