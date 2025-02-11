@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '@/app/context/AuthContext';
+import { Link } from 'react-router';
 
 export default function Header({ setComponent, isModalOpen }) {
 
@@ -18,9 +19,9 @@ export default function Header({ setComponent, isModalOpen }) {
                 <button onClick={() => isModalOpen(true)}>Poster un Coffs</button>
             </li>
             <li>
-                <button onClick={() => setComponent("profile")}>
+                <Link href="/profile">
                     <FastProfile />
-                </button>
+                </Link>
             </li>
         </ul>
     );
