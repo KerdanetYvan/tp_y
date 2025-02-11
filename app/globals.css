@@ -4,9 +4,9 @@ body {
     background-color: #2C1B18;
     color: #F5E9DC;
     font-family: Arial, sans-serif;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
     height: 100vh;
     margin: 0;
 }

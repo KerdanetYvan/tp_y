@@ -1,64 +1,48 @@
 import { NextResponse } from "next/server";
-import clientPromise from "@/libs/mongodb";
+import connect from "@/libs/mongodb";
+import mongoose from "mongoose";
 import User from "@/models/user.model";
 import bcrypt from "bcryptjs";
 
 export async function POST(req) {
     try {
-        // ✅ Lire correctement le body avec `await`
-        const body = await req.json();
-        console.log("📥 Body reçu :", body);
-        const { email, password, nickname } = body;
+        // On récupère les informations de l'utilisateur
+        const { nickname, email, password, avatar } = await req.json();
+        console.log("👤 Utilisateur :", nickname, email, password, avatar); // Test de récupération de l'utilisateur
 
-        // ✅ Vérifier si `body` contient bien les valeurs attendues
-        if (!body.email || !body.password || !body.nickname) {
-            return NextResponse.json(
-                { error: "Tous les champs sont requis." },
-                { status: 400 }
-            );
-        }
+        // On se connecte à la base de données
+        connect();
 
-        // ✅ Hash du mot de passe
-        const hashedPassword = await bcrypt.hash(body.password, 10);
+        // On vérifie si l'utilisateur existe déjà
+        const user = await User.findOne({ email });
+        console.log("🔍 Utilisateur trouvé :", user); // Test pour savoir si l'utilisateur existe ou non
+        // Si l'utilisateur existe déjà, on renvoie une erreur
+        if (user) {
+            console.alert("❌ Cet utilisateur existe déjà.");
+            return NextResponse.error(new Error("❌ Cet utilisateur existe déjà."));
+        };
 
-        // ✅ Connexion à MongoDB
-        const client = await clientPromise;
-        const db = client.db();
-        const usersCollection = db.collection("users");
+        // On crypte le mot de passe
+        const hashedPwd = await bcrypt.hash(password, 10);
 
-        // 🔍 Vérifier si l'utilisateur existe déjà
-        const existingUser = await usersCollection.findOne({ email });
-        if (existingUser) {
-            return NextResponse.json({ error: "Cet email est déjà utilisé." }, { status: 409 }); // 409 = Conflict
-        }
-
-        // ✅ Création de l'utilisateur
+        // On crée un nouvel utilisateur
         const newUser = new User({
-            email: body.email,
-            password: hashedPassword,
-            nickname: body.nickname
+            nickname,
+            email,
+            password: hashedPwd,
+            avatar,
         });
-
-        await newUser.save();
-
-        return NextResponse.json(
-            { message: "Inscription réussie", user: { email: newUser.email, nickname: newUser.nickname } },
-            { status: 201 }
-        );
-
+        console.log("🔧 Utilisateur : ", newUser) // On vérifie la création de notre user
+        // On sauvegarde l'utilisateur dans la base de données
+        try {
+            await newUser.save();
+            console.log("✅ Utilisateur enregistré :", newUser);
+            return Response.json({ user: newUser, status: 201 });
+        } catch(error) {
+            console.error("❌ Erreur lors de la sauvegarde de l'utilisateur :", error);
+        }
     } catch (error) {
         console.error("❌ Erreur serveur :", error);
-        return NextResponse.json(
-            { error: "Erreur serveur" },
-            { status: 500 }
-        );
-    };
-};
-
-function addUser(user) {
-    try {
-        return User.create({...user});
-    } catch (error) {
-        throw new Error(error.message);
+        return Response.error(new Error("❌ Erreur serveur"));
     };
 };
