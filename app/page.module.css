@@ -1,0 +1,28 @@
+.container_content{
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    text-align: center;
+    background: #2D1B18;
+    height: 100vh;
+    /* width: 100%; */
+    color: #F5E1A4;
+    gap: 10px;
+    padding: 20px;
+}
+
+.aside_left{
+    /* background: yellow; */
+    border: 2px solid #F5E1A4;
+    border-radius: 10px;
+}
+
+.main{
+    /* background: #b3503f; */
+    border: 2px solid #F5E1A4;
+    border-radius: 10px;
+}
+.aside_right{
+    /* background: rgb(223, 178, 41); */
+    border: 2px solid #F5E1A4;
+    border-radius: 10px;
+}

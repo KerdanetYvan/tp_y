@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import style from '../sign/page.module.css'
 // import { Link } from 'react-router-dom'
 import axios from 'axios'
 // import Header from '../components/Header';
@@ -28,48 +29,58 @@ export default function SignUp ({ setSigningUp, setSigningIn }) {
     };
 
     return (
-        <div className="register-container">
-            <h1 className="register-title">CaféTalk - Inscription</h1>
-            <div className="register-content">
+        <div className={style.containerSignIn}>
+            <div className={style.loginBox}>
+            <h2 className={style.title}>Inscription</h2>
                 <form onSubmit={handleSubmit} className="register-form">
-                    <label htmlFor="prenom" className="register-label">Pseudo :</label>
-                    <input
-                        type="text"
-                        onChange={handleChange}
-                        placeholder="Entrez votre pseudo"
-                        name="nickname"
-                        className="register-input"
-                        required
-                    />
+                    <div className={style.inputBox}>
+                        <label htmlFor="prenom">Pseudo :</label>
+                        <input
+                            type="text"
+                            onChange={handleChange}
+                            placeholder="Entrez votre pseudo"
+                            name="nickname"
+                            className={style.registerInput}
+                            required
+                        />
+                    </div>
+                    <div className={style.inputBox}>
                     <label htmlFor="avatar" className="register-label">Avatar :</label>
                     <input
                         type="file"
                         onChange={handleChange}
+                        className={style.registerInput}
                         name="avatar"
-                        className="register-input"
                     />
+                    </div>
+                    <div className={style.inputBox}>
                     <label htmlFor="email" className="register-label">Email :</label>
                     <input
                         type="email"
                         onChange={handleChange}
                         placeholder="Entrez votre email"
                         name="email"
-                        className="register-input"
+                        className={style.registerInput}
                         required
                     />
-                    <label htmlFor="password" className="register-label">Mot de passe :</label>
-                    <input
-                        type="password"
-                        onChange={handleChange}
-                        placeholder="Votre mot de passe"
-                        name="password"
-                        className="register-input"
-                        required
-                    />
-                    <button type="submit" className="register-button">Rejoindre le café</button>
+                    </div>
+                    <div className={style.inputBox}>
+                        <label htmlFor="password" className="register-label">Mot de passe :</label>
+                        <input
+                            type="password"
+                            onChange={handleChange}
+                            placeholder="Votre mot de passe"
+                            name="password"
+                            className={style.registerInput}
+                            required
+                        />
+                    </div>
+                    <div className={style.btnContainer}>
+                        <button type="submit"  className={style.btn}>Rejoindre le café</button>
+                    </div>
                 </form>
+                <button onClick={switchToSignIn}>Déjà inscrit ? Connectez-vous</button>
             </div>
-            <button onClick={switchToSignIn} className="register-switch">Déjà inscrit ? Connectez-vous</button>
         </div>
     )
 };

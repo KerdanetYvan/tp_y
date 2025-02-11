@@ -41,7 +41,9 @@
 
 
 /* styles/signin.css */
-/* body {
+
+
+  .containerSignIn {
     background-color: #2C1B18;
     color: #F5E9DC;
     font-family: Arial, sans-serif;
@@ -52,14 +54,7 @@
     margin: 0;
   }
   
-  .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .login-box {
+  .loginBox {
     background: #3E2723;
     padding: 40px;
     border-radius: 10px;
@@ -68,21 +63,21 @@
     text-align: center;
   }
   
-  h2 {
+  .title {
     margin-bottom: 20px;
   }
   
-  .input-box {
+  .inputBox {
     margin-bottom: 15px;
     text-align: left;
   }
-  .input-box label {
+  .inputBox label {
     display: block;
     font-size: 14px;
     margin-bottom: 5px;
   }
   
-  .register-input {
+  .registerInput {
     width: 93%;
     padding: 10px;
     border: 1px solid #9C5A4E;
@@ -93,7 +88,7 @@
     transition: border 0.3s ease;
   }
 
-  .register-input:focus {
+  .registerInput:focus {
       border: 1px solid #C08768;
   }
   .btn {
@@ -116,27 +111,27 @@
     color: #C08768;
     margin-bottom: 20px;
   }  
-  .register-link {
+  .registerLink {
     margin-top: 15px;
     font-size: 14px;
   }
   
-  .register-link a {
+  .registerLink a {
     color: #C08768;
     text-decoration: none;
     font-weight: bold;
   }
   
-  .register-link a:hover {
+  .registerLink a:hover {
     text-decoration: underline;
   }
 
-  .btn-container {
+  .btnContainer {
     display: flex;
     justify-content: center;
     margin-top: 10px;
   }
 
-  .btn-container button {
+  .btnContainer button {
     width: 60%;
-  } */
+  }
