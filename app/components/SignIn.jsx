@@ -63,7 +63,6 @@ export default function SignIn({ setSigningIn, setSigningUp }) {
         </form>
         <button onClick={switchToSignUp}>Pas encore de compte ? Inscrivez-vous</button>
       </div>
-      <button onClick={switchToSignUp}>Pas encore de compte ? Inscrivez-vous</button>
     </div>
   )
 }
