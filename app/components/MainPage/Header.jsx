@@ -19,7 +19,7 @@ export default function Header({ setComponent, isModalOpen }) {
             </li>
             <li>
                 <button onClick={() => setComponent("profile")}>
-                    <FastProfile />
+                    {/* <FastProfile /> */}
                 </button>
             </li>
         </ul>
