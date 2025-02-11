@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import connect from "@/libs/mongodb";
-import mongoose from "mongoose";
 import User from "@/models/user.model";
 import bcrypt from "bcryptjs";
 
@@ -18,7 +17,7 @@ export async function POST(req) {
         console.log("🔍 Utilisateur trouvé :", user); // Test pour savoir si l'utilisateur existe ou non
         // Si l'utilisateur existe déjà, on renvoie une erreur
         if (user) {
-            console.alert("❌ Cet utilisateur existe déjà.");
+            console.error("❌ Cet utilisateur existe déjà.");
             return NextResponse.error(new Error("❌ Cet utilisateur existe déjà."));
         };
 

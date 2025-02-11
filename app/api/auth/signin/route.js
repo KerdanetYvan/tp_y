@@ -1,19 +1,21 @@
 import { NextResponse } from "next/server";
-import clientPromise from "@/lib/mongodb";
+import connect from "@/libs/mongodb";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import User from "@/models/user.model";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function POST(req) {
     try {
         const { email, password } = await req.json();
+        // console.log("👤 Utilisateur :", email, password); // Vérification du body
 
-        const client = await clientPromise;
-        const db = client.db("CoffeeX");
+        connect();
 
         // Vérification de l'existence de l'utilisateur
-        const user = await db.collection("users").findOne({ email });
+        const user = await User.findOne({ email });
+        console.log("🔍 Utilisateur trouvé :", user); // Test pour savoir si l'utilisateur existe ou non
         if(!user) { // Si l'utilisateur n'existe pas
             return NextResponse.error(new Error("Cet utilisateur n'existe pas"), 404); // On renvoie une erreur 404
         }
