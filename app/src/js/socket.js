@@ -2,6 +2,7 @@ const { io } = require("socket.io-client");
 const socket_js = io();
 
 function setupSocket() {
+    console.log('frerrrrrrrrrrrrrrrrrrrroooooooooooooooooooooooooooooot');
     
   const form = document.getElementById('form');
   const input = document.getElementById('input');
