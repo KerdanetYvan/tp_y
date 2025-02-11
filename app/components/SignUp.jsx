@@ -16,7 +16,7 @@ export default function SignUp ({ setSigningUp, setSigningIn }) {
         try {
             console.log('Création de l\'utilisateur', user);
             const response = await axios.post('../api/auth/signup', user, { headers: { 'Content-Type': 'application/json' } });
-            console.log('Utilisateur créé', response.data);
+            console.log('Utilisateur créé', response);
         } catch (e) {
             console.log(e.message);
         }
