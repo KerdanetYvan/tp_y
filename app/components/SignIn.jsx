@@ -1,9 +1,9 @@
 /* Composant de connexion */
 "use client";
 import React, { useState, useContext } from 'react'
-import Link from 'next/link'
 import { AuthContext } from '../context/AuthContext'
 import style from '../sign/page.module.css'
+import { redirect } from 'next/navigation';
 
 export default function SignIn({ setSigningIn, setSigningUp }) {
   const [user, setUser] = useState({})
@@ -20,6 +20,7 @@ export default function SignIn({ setSigningIn, setSigningUp }) {
     if (login) {
       console.log('Connexion réussie')
       console.log(user);
+      redirect('/');
     }
   }
 
