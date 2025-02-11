@@ -1,6 +1,8 @@
+"use client"
 import styles from "./page.module.css";
 import SignUp from "./components/SignUp";
 import style from "./page.module.css";
+import Coffs from "./components/Coffs";
 export default function Home() {
   return (
     <div>
@@ -9,6 +11,7 @@ export default function Home() {
         <main className={styles.main}></main>
         <aside className={styles.aside_right}></aside>
       </div>
+      <Coffs />
     </div>
   );
 }

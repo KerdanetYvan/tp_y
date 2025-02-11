@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "nodemon",
     "build": "next build",
-    "start": "next start",
+    "start": "node server.js",
     "lint": "next lint"
   },
   "dependencies": {
@@ -15,10 +15,14 @@
     "mongoose": "^8.9.6",
     "mongoose-unique-validator": "^4.0.1",
     "next": "15.1.6",
+    "node-http": "^0.0.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.5",
-    "tp_y": "file:"
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "tp_y": "file:",
+    "ws": "^8.18.0"
   }
 }
