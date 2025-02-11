@@ -8,10 +8,10 @@ export default function Home() {
       <Socket
         function_for_socket_js={setupSocket}
       />
-      <ul id="messages"></ul>
+      {/* <ul id="messages"></ul>
       <form id="form" action="">
         <input id="input" /><button>Send</button>
-      </form>
+      </form> */}
     </div>
   );
 }

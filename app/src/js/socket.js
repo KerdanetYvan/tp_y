@@ -24,4 +24,4 @@ function setupSocket() {
   });
 }
 
-module.exports = { socket_js, setupSocket };
+module.exports = { setupSocket };
