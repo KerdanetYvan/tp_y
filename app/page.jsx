@@ -24,9 +24,9 @@ export default function Home() {
 
   console.log(auth);
 
-  // if(!auth){
-  //   redirect("/sign");
-  // }
+  if(!auth){
+    redirect("/sign");
+  }
 
   return (
     <div className={styles.container}>
