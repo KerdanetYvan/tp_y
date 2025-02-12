@@ -1,12 +1,12 @@
 'use client';
-import styles from "../page.module.css";
+import styles from "../../page.module.css";
 import axios from "axios";
 import React, {useState, useContext} from 'react'
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 const Coff = () => {
     const { auth } = useContext(AuthContext);    
     const [coffs, setCoffs] = useState({
-        user: '',
+        user: auth.nickname || '',
         coffs: '',
         img: '',
     });
@@ -24,8 +24,6 @@ const Coff = () => {
             };
             
             reader.readAsDataURL(file); // Convertit l’image en Base64
-        } else if (name === "user") {
-            setCoffs((prev) => ({ ...prev, user: auth.nickname }));
         } else {
             setCoffs((prev) => ({ ...prev, [name]: value }));
         }

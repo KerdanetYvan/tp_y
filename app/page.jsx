@@ -5,6 +5,7 @@ import { AuthContext } from "./context/AuthContext";
 
 /* Import des Composants */
 import Coffs from "./components/MainPage/Coffs";
+import Coff from "./components/MainPage/Coff";
 import Header from "./components/MainPage/Header";
 import Explore from "./components/MainPage/Explore";
 import Message from "./components/MainPage/Message";
@@ -13,7 +14,10 @@ import { redirect } from "next/navigation";
 
 const HomeComponent = () => {
   return (
-    <Coffs />
+    <>
+      <Coffs />
+      <Coff />
+    </>
   );
 };
 
