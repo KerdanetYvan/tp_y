@@ -9,8 +9,12 @@ export const AuthProvider = ({ children }) => {
     // Etat pour suivre l'authentification
     const [isLoading, setIsLoading] = useState(false);
     // Etat pour stocker les infos de l'user connecté
-    const [auth, setAuth] = useState(null);
+    const [auth, setAuth] = useState(() => {
+        const storedAuth = localStorage.getItem('auth');
+        return storedAuth ? JSON.parse(storedAuth) : null;
+    });
 
+    axios.defaults.withCredentials = true;
 
     const login = async (dataForm) => {
         setIsLoading(true);
@@ -25,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         }catch(e){
             console.log(e.message);
             setIsLoading(false);
-        }
+        };
     };
 
     return (
