@@ -1,6 +1,6 @@
 "use client";
-import { socket_js, setupSocket } from "../src/js/socket";
-import Socket from "./Socket";
+import { socket_js, setupSocket } from "../../src/js/socket";
+import Socket from "../Socket";
 
 export default function Home() {
   return (
@@ -8,6 +8,7 @@ export default function Home() {
       <Socket
         function_for_socket_js={setupSocket}
       />
+      <ul id="messages"></ul>
     </div>
   );
 }

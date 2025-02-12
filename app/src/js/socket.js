@@ -3,8 +3,9 @@ const socket_js = io();
 
 function setupSocket() {
     
-  const form = document.getElementById('form');
-  const input = document.getElementById('input');
+  const form = document.getElementsByClassName('page_formCoffs__vSVSN')[0];
+  // const input = document.getElementById('input');
+  const input = document.getElementsByTagName('button');
   const messages = document.getElementById('messages');
 
   form.addEventListener('submit', (e) => {
