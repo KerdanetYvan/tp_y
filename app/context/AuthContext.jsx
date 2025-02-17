@@ -9,10 +9,10 @@ export const AuthProvider = ({ children }) => {
     // Etat pour suivre l'authentification
     const [isLoading, setIsLoading] = useState(false);
     // Etat pour stocker les infos de l'user connecté
-    const [auth, setAuth] = useState();
+    const [auth, setAuth] = useState({});
 
     useEffect(() => {
-        setAuth(() =>{
+        setAuth(() => {
             const storedAuth = localStorage.getItem('auth');
             return storedAuth ? JSON.parse(storedAuth) : null;
         })
